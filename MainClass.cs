@@ -9,6 +9,12 @@ public class MainClass
 {
     public static int Main(string[] args)
     {
+        args = new string[] 
+        {
+            "compress",
+            @"I:\Установка\Девушки фэнтези.exe",
+            @"I:\Установка\Девушки фэнтези.exe.gzip"
+        };
         GZip gZip = new GZip(args[1], args[2]);
         IStrategy strategy = default(IStrategy);
         switch (args[0])
@@ -21,7 +27,8 @@ public class MainClass
                 break;
         }
         gZip.SetStrategy(strategy);
-        gZip.RunThreads();
+        gZip.Run();
+        //gZip.RunThreads();
         return 0;
     }
 

@@ -4,6 +4,7 @@
 // Purpose: Definition of Class DecompressStrategy
 
 using System;
+using System.Collections.Concurrent;
 
 public class DecompressStrategy : IStrategy
 {
@@ -20,4 +21,8 @@ public class DecompressStrategy : IStrategy
         return new Decompress();
     }
 
+    public IReader GetIReader(string path, BlockingCollection<DataBlock> dataBlocks)
+    {
+        throw new NotImplementedException();
+    }
 }

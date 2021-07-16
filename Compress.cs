@@ -14,4 +14,9 @@ public class Compress : ICompress
         dataBlock.CompressData();
         return dataBlock;
     }
+
+    /*internal override byte[] CompressBlock(byte[] bytes)
+    {
+        throw new NotImplementedException();
+    }*/
 }

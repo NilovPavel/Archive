@@ -50,6 +50,11 @@ public abstract class ICompress
         }
     }
 
+    public byte[] CompressBlock(byte[] bytes)
+    {
+        return bytes;
+    }
+
     public ICompress()
     {
         this.Initialization();

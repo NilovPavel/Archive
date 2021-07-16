@@ -4,10 +4,11 @@
 // Purpose: Definition of Interface IStrategy
 
 using System;
+using System.Collections.Concurrent;
 
 public interface IStrategy
 {
-    IReader GetIReader(string path);
+    IReader GetIReader(string path, BlockingCollection<DataBlock> dataBlocks);
 
     ICompress GetICompress();
 

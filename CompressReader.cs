@@ -4,26 +4,45 @@
 // Purpose: Definition of Class CompressReader
 
 using System;
+using System.Collections.Concurrent;
 
 public class CompressReader : IReader
 {
+    private BlockingCollection<DataBlock> dataBlocks;
+    private long currentIndex;
     public override void ReadBlocks()
     {
-        for (long readBlockCount = 0; readBlockCount < this.lastIndex; readBlockCount++)
+        for (long readBlockCount = currentIndex; !this.dataBlocks.IsAddingCompleted; readBlockCount++)
         {
             DataBlock dataBlock = new DataBlock
             {
                 Id = readBlockCount,
                 Bytes = this.ReadFileBlock(readBlockCount)
             };
-            readCollection.Add(dataBlock);
+
+            if (!this.dataBlocks.TryAdd(dataBlock))
+            {
+                currentIndex = readBlockCount;
+                break;
+            }
         }
-        readCollection.CompleteAdding();
+        
+        if(currentIndex != this.lastIndex - 1)
+            return;
+
+        this.dataBlocks.CompleteAdding();
         this.fileStream.Close();
         this.fileStream.Dispose();
     }
 
-    public CompressReader(string path) : base(path)
+    internal override bool IsEnd()
     {
+        return this.dataBlocks.IsCompleted; 
+    }
+
+    public CompressReader(string path, BlockingCollection<DataBlock> dataBlocks) : base(path)
+    {
+        this.dataBlocks = dataBlocks;
+        this.currentIndex = 0;
     }
 }

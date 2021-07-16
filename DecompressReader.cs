@@ -70,4 +70,9 @@ public class DecompressReader : IReader
         this.fileStream.Close();
         this.fileStream.Dispose();
     }
+
+    internal override bool IsEnd()
+    {
+        throw new NotImplementedException();
+    }
 }

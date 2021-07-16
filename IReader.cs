@@ -32,6 +32,7 @@ public abstract class IReader
         return bytes;
     }
 
+    internal abstract bool IsEnd();
     public abstract void ReadBlocks();
 
     public IReader(string path)

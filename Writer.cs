@@ -28,7 +28,7 @@ public class Writer
         writeCollection = new BlockingCollection<DataBlock>(8);
     }
 
-    public Writer(string path)
+    public Writer(string path, BlockingCollection<DataBlock> dataBlocks)
     {
         this.path = path;
         this.Initialization();

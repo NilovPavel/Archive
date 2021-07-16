@@ -12,4 +12,9 @@ public class Decompress : ICompress
         dataBlock.DecompressData();
         return dataBlock;
     }
+
+    /*internal override byte[] CompressBlock(byte[] bytes)
+    {
+        throw new NotImplementedException();
+    }*/
 }
